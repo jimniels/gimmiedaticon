@@ -1,0 +1,180 @@
+/*
+    General Styles
+    General overall styles
+
+    Colors
+    @red: #D10000
+*/
+*, 
+*:before, 
+*:after {
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  background: #eee;
+  text-align: center;
+}
+
+body {
+    font: 1em;
+    line-height: 1.5;
+    font-family: Lucida Grande, sans-serif;
+    max-width: 60em; /* 960/16 */
+    margin: 0 auto;
+    padding: 0 5%;
+}
+
+img {
+    max-width: 100%;
+    height: auto;    
+}
+
+/*
+    Content
+    Main container for content, i.e. the icons, error messages, etc
+*/
+h1 {
+    font-family: 'Pacifico', serif; 
+    font-size: 3em; 
+    margin: .5em 0 .75em;
+    color: #D10000;
+    text-shadow: 0 4px 2px rgba(0,0,0,.15);
+}
+
+.wrapper {
+    background: #fff;
+    border: 1px solid #ccc;
+    text-align: center;
+    padding: 2em;
+    margin: 1em 0 4em;
+    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+    border-radius: 3px;
+    position: relative;
+}
+
+.content {
+    max-width: 512px;
+    margin: 0 auto;
+    position: relative;
+}
+
+    .content * { /* do a simple reset on elements in .content */
+        margin: 0;
+        padding: 0;
+    }
+
+    .content--loading:before {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #fff;
+        content: '';
+        opacity: .9;
+        z-index: 10;
+    }
+
+    .content--loading:after {
+        content: url('img/loading.gif');
+        position: absolute;
+        left: 50%;
+        top: 3em;
+        margin-left: -16px;
+        margin-top: -16px;
+        z-index: 11;
+    }
+
+    .content--error {
+        color: #D10000;
+    }
+
+    .content--error-pop {
+        -webkit-animation: pop .333s;
+        -moz-animation: pop .333s;
+        -o-animation: pop .333s;
+        animation: pop .333s;
+    }
+
+    @-webkit-keyframes pop {
+        0%   {-webkit-transform: scale(1);}
+        50%  {-webkit-transform: scale(1.075);}
+        100% {-webkit-transform: scale(1);}
+    }
+    @-moz-keyframes pop {
+        0%   {-webkit-transform: scale(1);}
+        50%  {-webkit-transform: scale(1.075);}
+        100% {-webkit-transform: scale(1);}
+    }
+    @-o-keyframes pop {
+        0%   {-webkit-transform: scale(1);}
+        50%  {-webkit-transform: scale(1.075);}
+        100% {-webkit-transform: scale(1);}
+    }
+    @keyframes pop {
+        0%   {-webkit-transform: scale(1);}
+        50%  {-webkit-transform: scale(1.075);}
+        100% {-webkit-transform: scale(1);}
+    }
+
+    .content strong {
+        font-weight: bold;
+        display: block;
+    }
+
+    .content img[src*="icon-mask.png"] {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+
+/*
+    Submit
+    Styles for the form input and button
+*/
+form {
+    position: relative;
+}
+
+    form button {
+        text-decoration: none;
+        background: #D10000;
+        height: 100%;
+        position: absolute;
+        right: 0;
+        top: 0;
+        line-height: 1.5;
+        color: white;
+        font-size: 1em;
+        border-radius: 0 3px 3px 0;
+        border: 0;
+        outline: 0;
+        text-align: center;
+        -webkit-appearance: none;
+        margin: 0;
+        padding: 0 1em;
+    }
+
+        form button:disabled {
+            opacity: .5;
+        }
+
+    form input{
+        width: 100%;
+        display: block;
+        font-size: 1em;
+        padding: .625em .85em;
+        padding-right: 7em;
+        line-height: 1.5;
+        margin: 0;
+        border: 1px solid #bbb;
+        box-shadow: 0 1px 3px rgba(0,0,0,.1) inset, 
+                    0 2px 4px rgba(0,0,0,.1);
+        border-radius: 3px;
+    }
+
+        form input:focus {
+            border-color: #298cda;
+        }
