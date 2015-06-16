@@ -1,45 +1,52 @@
-function MakeUserSubmission() {
-    var url = $('input').val();
-    var reg = /^(http|https):\/\/itunes/;
-    
-    return {
-        "url": url,
-        "isValidItunesUrl": reg.test(url),
-        "getId": (function(){
-            // Looks for '/id' followed by a number
-            // i.e. '/id391810?mt=8' would return '391810'
-            var id = url.match(/\/id(\d+)/i);
-            if(id) {
-                return id[1];
-            } else {
-                return false;
-            }
-        })
-    }
-}
-
 var Gimmie = {
     $content: $('.content'),
     $form: $('form'),
+    userInput: '',
+    userInputIsValid: false,
+    appId: '',
 
     toggleLoading: function(){
-        // Toggle loading indicator and form
+        // Toggle loading indicator
         this.$content.toggleClass('content--loading');
+
+        // Toggle the submit button so we don't get double submissions
+        // http://stackoverflow.com/questions/4702000/toggle-input-disabled-attribute-using-jquery
         this.$form.find('button').prop('disabled', function(i, v) { return !v; });
     },
 
-    throwError: function(text){
+    throwError: function(header, text){
         // Remove animation class
         this.$content.removeClass('content--error-pop');
-        
+
         // Trigger reflow
         // https://css-tricks.com/restart-css-animation/
         this.$content[0].offsetWidth = this.$content[0].offsetWidth;
 
         // Add classes and content
-        this.$content.html('<p>' + text + '</p>').addClass('content--error content--error-pop');
+        this.$content
+            .html('<p><strong>' + header + '</strong> ' + text + '</p>')
+            .addClass('content--error content--error-pop');
 
         this.toggleLoading();
+    },
+
+    validate: function(input) {
+        // Set the user input
+        this.userInput = input;
+
+        // Use regex to test if input is valid. It's valid if:
+        //  1. It begins with 'http://itunes'
+        //  2. It has '/id' followed by digits in the string somewhere
+        var regUrl = /^(http|https):\/\/itunes/,
+            regId = /\/id(\d+)/i;
+        if ( regUrl.test(this.userInput) && regId.test(this.userInput) ) {
+            this.userInputIsValid = true;
+            var id = regId.exec(this.userInput);
+            this.appId = id[1];
+        } else {
+            this.userInputIsValid = false;
+            this.appId = '';
+        }
     },
 
     render: function(response){
@@ -48,18 +55,18 @@ var Gimmie = {
         icon.onload = function() {
             Gimmie.$content
                 .html(this)
-                .append('<p><strong>' + response.trackName + '</strong> Image file dimensions: ' + this.naturalWidth + '×' + this.naturalHeight + '</p>')
+                .append('<p><strong>' + response.trackName + '</strong> Actual icon dimensions: ' + this.naturalWidth + '×' + this.naturalHeight + '</p>')
                 .removeClass('content--error');
             Gimmie.toggleLoading();
 
-            // If it's an iphone icon, show the mask too
+            // If it's an iOS icon, load the mask too
             if(response.kind != 'mac-software') {
                 var mask = new Image();
-                mask.src = 'img/icon-mask.png';
+                mask.src = 'assets/img/icon-mask.png';
                 mask.onload = function() {
                     Gimmie.$content.prepend(this);
                 }
-            } 
+            }
         }
     }
 };
@@ -69,20 +76,16 @@ $(document).ready(function(){
 
     Gimmie.$form.on('submit', function(e){
         e.preventDefault();
-
         Gimmie.toggleLoading();
+        Gimmie.validate( $(this).find('input').val() );
 
-        var userSubmission = new MakeUserSubmission();
-        
-        if( userSubmission.isValidItunesUrl && userSubmission.getId() ) {
-
+        if( Gimmie.userInputIsValid ) {
             $.ajax({
-                // leave off the 'http:'
-                url: "//itunes.apple.com/lookup?id=" + userSubmission.getId(),
+                url: "https://itunes.apple.com/lookup?id=" + Gimmie.appId,
                 dataType: 'JSONP'
             })
-            .done(function(response) { 
-                
+            .done(function(response) {
+
                 // Get the first response and log it
                 var response = response.results[0];
                 console.log(response);
@@ -93,18 +96,21 @@ $(document).ready(function(){
                     Gimmie.render(response);
                 } else {
                     Gimmie.throwError(
-                        '<strong>Invalid Response</strong> The request you made appears to not have an associated icon. <br> Try a different URL.'
+                        'Invalid Response',
+                        'The request you made appears to not have an associated icon. <br> Try a different URL.'
                     );
                 }
             })
-            .fail(function(data) { 
+            .fail(function(data) {
                 Gimmie.throwError(
-                    '<strong>iTunes API Error</strong> There was an error retrieving the info. Check the iTunes URL or try again later.'
+                    'iTunes API Error',
+                    'There was an error retrieving the info. Check the iTunes URL or try again later.'
                 );
             });
         } else {
             Gimmie.throwError(
-                '<strong>Invalid Link</strong> You must submit a standard iTunes store link with an ID, i.e. <br> https://itunes.apple.com/us/app/angry-birds/id343200656'
+                'Invalid Link',
+                'You must submit a standard iTunes store link with an ID, i.e. <br> <a href="https://itunes.apple.com/us/app/twitter/id333903271?mt=8">https://itunes.apple.com/us/app/twitter/<em>id333903271</em>?mt=8</a>'
             );
         }
     });

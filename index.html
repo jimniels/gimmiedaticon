@@ -4,27 +4,36 @@
     <meta charset="utf-8">
     <title>Gimmie Dat iCon</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href='//fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
-    <link rel="icon" href="//favicon.ico" type="image/x-icon" sizes="16x16">
-    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
 
-    <h1>Gimmie Dat iCon</h1>
+    <header>
+        <h1><a href="./">Gimmie Dat iCon</a></h1>
+        <p>Retrieve full-sized icon artwork for iOS &amp; Mac apps.</p>
+    </header>
 
-    <form class="submit">
-        <input type="url" placeholder="iTunes Link...">
-        <button type="submit">Gimmie</button>
-    </form>
+    <main>
+        <form class="submit">
+            <input type="url" placeholder="iTunes Link...">
+            <button type="submit">Gimmie</button>
+        </form>
 
-    <div class="wrapper">
-        <div class="content">
-            <p><strong>Enter a valid iTunes link, i.e.</strong> https://itunes.apple.com/us/app/angry-birds/id343200656</p>
-            <img src="img/icon-placeholder.png">
+        <div class="wrapper">
+            <div class="content">
+                <p><strong>Enter a valid iTunes app store link, i.e.</strong> <a href="https://itunes.apple.com/us/app/twitter/id333903271?mt=8">https://itunes.apple.com/us/app/twitter/id333903271?mt=8</a></p>
+                <img src="assets/img/icon-placeholder.svg" alt="Icon placeholder" />
+            </div>
         </div>
-    </div>
+    </main>
+<!--
+    <footer>
+        <img src="assets/img/tuts-logo.svg" alt="Tuts+ Logo" />
+        <p>A <a href="#">Web Design tutorial</a> authored by <a href="http://twitter.com/jimniels">@jimniels</a></p>
+    </footer>-->
 
-    <script src="jquery.js"></script>
-    <script src="script.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="assets/js/main.js"></script>
 </body>
 </html>

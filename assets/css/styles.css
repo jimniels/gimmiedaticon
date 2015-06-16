@@ -1,55 +1,142 @@
 /*
     General Styles
-    General overall styles
 
     Colors
-    @red: #D10000
+    @highlight: #196E76
+    @text: #4A4A4A;
+    @text-light: #9A9A9A
+    @body-background: #EEEEEE;
 */
-*, 
-*:before, 
+*,
+*:before,
 *:after {
-  box-sizing: inherit;
+    box-sizing: inherit;
+    margin: 0;
+    padding: 0;
 }
 
 html {
   box-sizing: border-box;
-  background: #eee;
+  background: #EEE;
   text-align: center;
 }
 
 body {
-    font: 1em;
+    font-size: 1em;
     line-height: 1.5;
     font-family: Lucida Grande, sans-serif;
-    max-width: 60em; /* 960/16 */
+    max-width: 43.75em; /* 880/16 */
     margin: 0 auto;
-    padding: 0 5%;
+    padding: 0;
+    color: #4A4A4A;
 }
 
 img {
     max-width: 100%;
-    height: auto;    
+    height: auto;
+}
+
+a {
+    color: inherit;
 }
 
 /*
-    Content
-    Main container for content, i.e. the icons, error messages, etc
+    Header Styles
 */
-h1 {
-    font-family: 'Pacifico', serif; 
-    font-size: 3em; 
-    margin: .5em 0 .75em;
-    color: #D10000;
-    text-shadow: 0 4px 2px rgba(0,0,0,.15);
+header {
+    margin: 1em 0 2em;
+    color: #196E76;
 }
 
+    header h1 {
+        font-family: 'Pacifico', serif;
+        font-size: 3em;
+        text-shadow: 0 4px 2px rgba(0, 0, 0, .1);
+        margin: 0;
+    }
+
+        header h1 a {
+            text-decoration: none;
+        }
+
+    header p {
+        margin-top: -.625em;
+        text-indent: 7.75em; /* indent slightly */
+        text-shadow: 0 1px 0px rgba(0, 0, 0, .15);
+        font-size: .875em; /* 14/16 */
+    }
+
+    @media screen and (max-width: 600px) {
+        header p {
+            text-indent: 0;
+            margin-top: .5em;
+        }
+    }
+
+/*
+    Form Input
+    Styles for the form input and button
+*/
+form {
+    position: relative;
+}
+
+    form input{
+        width: 100%;
+        display: block;
+        font-size: 1em;
+        padding: .625em .85em;
+        padding-right: 7em;
+        line-height: 1.5;
+        margin: 0;
+        border: 1px solid #bbb;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, .1) inset,
+                    0 2px 4px rgba(0, 0, 0, .1);
+        border-radius: 3px;
+    }
+
+        form input:focus {
+            border-color: #298cda;
+        }
+
+    form button {
+        text-decoration: none;
+        background: #196E76;
+        height: 100%;
+        position: absolute;
+        right: 0;
+        top: 0;
+        line-height: 1.5;
+        color: white;
+        font-size: 1em;
+        border-radius: 0 3px 3px 0;
+        border: 0;
+        outline: 0;
+        text-align: center;
+        -webkit-appearance: none;
+        margin: 0;
+        padding: 0 1em;
+        font-family: 'Pacifico', serif;
+    }
+        form button:hover {
+            cursor: pointer;
+        }
+
+        form button:disabled {
+            opacity: .5;
+        }
+
+/*
+    Content Styles
+    Main container for content, i.e. the icons, error messages, etc
+*/
 .wrapper {
     background: #fff;
     border: 1px solid #ccc;
     text-align: center;
     padding: 2em;
-    margin: 1em 0 4em;
-    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+    margin: .5em 0 2em;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
     border-radius: 3px;
     position: relative;
 }
@@ -58,11 +145,17 @@ h1 {
     max-width: 512px;
     margin: 0 auto;
     position: relative;
+    word-wrap: break-word; /* for long urls */
 }
 
     .content * { /* do a simple reset on elements in .content */
         margin: 0;
         padding: 0;
+    }
+
+    .content strong {
+        font-weight: bold;
+        display: block;
     }
 
     .content--loading:before {
@@ -78,7 +171,7 @@ h1 {
     }
 
     .content--loading:after {
-        content: url('img/loading.gif');
+        content: url('../img/loading.gif');
         position: absolute;
         left: 50%;
         top: 3em;
@@ -87,8 +180,9 @@ h1 {
         z-index: 11;
     }
 
+     /* WHERE WE LEFT OFF */
     .content--error {
-        color: #D10000;
+        color: #196E76;
     }
 
     .content--error-pop {
@@ -119,9 +213,9 @@ h1 {
         100% {-webkit-transform: scale(1);}
     }
 
-    .content strong {
-        font-weight: bold;
-        display: block;
+    .content em {
+        font-style: normal;
+        background-color: lightyellow;
     }
 
     .content img[src*="icon-mask.png"] {
@@ -131,50 +225,14 @@ h1 {
     }
 
 /*
-    Submit
-    Styles for the form input and button
+    Footer
+    Styles for the attribution footer
 */
-form {
-    position: relative;
+footer {
+    margin-bottom: 3em;
 }
 
-    form button {
-        text-decoration: none;
-        background: #D10000;
-        height: 100%;
-        position: absolute;
-        right: 0;
-        top: 0;
-        line-height: 1.5;
-        color: white;
-        font-size: 1em;
-        border-radius: 0 3px 3px 0;
-        border: 0;
-        outline: 0;
-        text-align: center;
-        -webkit-appearance: none;
-        margin: 0;
-        padding: 0 1em;
+    footer p {
+        font-size: .875em; /* 14/16 */
+        color: #9B9B9B;
     }
-
-        form button:disabled {
-            opacity: .5;
-        }
-
-    form input{
-        width: 100%;
-        display: block;
-        font-size: 1em;
-        padding: .625em .85em;
-        padding-right: 7em;
-        line-height: 1.5;
-        margin: 0;
-        border: 1px solid #bbb;
-        box-shadow: 0 1px 3px rgba(0,0,0,.1) inset, 
-                    0 2px 4px rgba(0,0,0,.1);
-        border-radius: 3px;
-    }
-
-        form input:focus {
-            border-color: #298cda;
-        }
