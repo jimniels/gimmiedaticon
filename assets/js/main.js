@@ -14,7 +14,7 @@ var Gimmie = {
         this.$form.find('button').prop('disabled', function(i, v) { return !v; });
     },
 
-    throwError: function(header, text){
+    throwError: function(header, body){
         // Remove animation class
         this.$content.removeClass('content--error-pop');
 
@@ -24,16 +24,13 @@ var Gimmie = {
 
         // Add classes and content
         this.$content
-            .html('<p><strong>' + header + '</strong> ' + text + '</p>')
+            .html('<p><strong>' + header + '</strong> ' + body + '</p>')
             .addClass('content--error content--error-pop');
 
         this.toggleLoading();
     },
 
-    validate: function(input) {
-        // Set the user input
-        this.userInput = input;
-
+    validate: function() {
         // Use regex to test if input is valid. It's valid if:
         //  1. It begins with 'http://itunes'
         //  2. It has '/id' followed by digits in the string somewhere
@@ -77,7 +74,8 @@ $(document).ready(function(){
     Gimmie.$form.on('submit', function(e){
         e.preventDefault();
         Gimmie.toggleLoading();
-        Gimmie.validate( $(this).find('input').val() );
+        Gimmie.userInput = $(this).find('input').val();
+        Gimmie.validate();
 
         if( Gimmie.userInputIsValid ) {
             $.ajax({

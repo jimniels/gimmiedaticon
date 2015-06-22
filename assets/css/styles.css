@@ -158,6 +158,17 @@ form {
         display: block;
     }
 
+    .content em {
+        font-style: normal;
+        background-color: lightyellow;
+    }
+
+    .content img[src*="icon-mask.png"] {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+
     .content--loading:before {
         position: absolute;
         top: 0;
@@ -180,7 +191,6 @@ form {
         z-index: 11;
     }
 
-     /* WHERE WE LEFT OFF */
     .content--error {
         color: #196E76;
     }
@@ -211,17 +221,6 @@ form {
         0%   {-webkit-transform: scale(1);}
         50%  {-webkit-transform: scale(1.075);}
         100% {-webkit-transform: scale(1);}
-    }
-
-    .content em {
-        font-style: normal;
-        background-color: lightyellow;
-    }
-
-    .content img[src*="icon-mask.png"] {
-        position: absolute;
-        left: 0;
-        top: 0;
     }
 
 /*
