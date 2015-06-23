@@ -1,5 +1,5 @@
 # Gimmie Dat iCon
 
-A web design project made for [Webdesign Tuts](http://webdesign.tutsplus.com).
+A web design project made for Webdesign Tuts. 
 
-[See the tutorial ›]()
+[View the tutorial ›]()
