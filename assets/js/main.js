@@ -70,6 +70,7 @@ var Gimmie = {
             if(response.kind != 'mac-software') {
                 var mask = new Image();
                 mask.src = 'assets/img/icon-mask.png';
+                mask.className = 'mask'
                 mask.onload = function() {
                     Gimmie.$content.prepend(this);
                 }
@@ -80,6 +81,11 @@ var Gimmie = {
 
 
 $(document).ready(function(){
+
+    // Show/hide mask on click
+    Gimmie.$content.on('click', function(){
+      $('img.mask').toggle();
+    });
 
     Gimmie.$form.on('submit', function(e){
         e.preventDefault();
