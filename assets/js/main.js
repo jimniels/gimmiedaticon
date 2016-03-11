@@ -48,7 +48,17 @@ var Gimmie = {
 
     render: function(response){
         var icon = new Image();
-        icon.src = response.artworkUrl512;
+        var icon1024 = response.artworkUrl512.split('512x512').join('1024x1024');
+        icon.src = icon1024;
+        icon.onerror = function() {
+          icon.src = response.artworkUrl512;
+          icon.onerror = function() {
+            Gimmie.throwError(
+                'Icon Retrieval Error',
+                'There was a problem getting the icon. Try again later, or try getting the icon for a different app.'
+            );
+          }
+        }
         icon.onload = function() {
             Gimmie.$content
                 .html(this)
