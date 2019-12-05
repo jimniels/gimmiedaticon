@@ -32,9 +32,9 @@ var Gimmie = {
 
     validate: function() {
         // Use regex to test if input is valid. It's valid if:
-        //  1. It begins with 'http://itunes'
+        //  1. It begins with 'http://itunes' or "https://apps"
         //  2. It has '/id' followed by digits in the string somewhere
-        var regUrl = /^(http|https):\/\/itunes/,
+        var regUrl = /^(http|https):\/\/(itunes|apps)/,
             regId = /\/id(\d+)/i;
         if ( regUrl.test(this.userInput) && regId.test(this.userInput) ) {
             this.userInputIsValid = true;
